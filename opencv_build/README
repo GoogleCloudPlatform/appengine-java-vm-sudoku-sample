@@ -1,0 +1,5 @@
+This is a (somewhat brutal) build to make a opencv debian wheezy.
+
+If you have gradle installed, just use : gradle build
+
+It will put the debian file directly in the frontend module.

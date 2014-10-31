@@ -1,0 +1,15 @@
+defaultTasks 'build'
+
+task compile(type: Exec) {
+  commandLine 'docker build -t custom/opencv .'.split()
+}
+
+task build(dependsOn: compile, type: Exec) {
+  commandLine 'docker run --name=opencv-deb custom/opencv'.split()
+  commandLine 'docker cp opencv-deb:/root/opencv_2.4.10-1-2_all.deb ../frontend/src/main/webapp/'.split()
+}
+
+task clean(type: Exec) {
+  commandLine 'docker rm opencv-deb'
+  commandLine 'docker rmi "custom/opencv"'
+}

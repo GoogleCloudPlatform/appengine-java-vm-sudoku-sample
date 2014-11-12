@@ -40,24 +40,11 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 public class UploadServlet extends HttpServlet {
     private static final Logger log = Logger.getLogger(UploadServlet.class.getName());
 
-    private static Cache cache = null;
-
-    static {
-        // Register Objectify stuff.
-        ObjectifyService.register(SolvedSudoku.class);
-
-        try {
-            CacheFactory cacheFactory = CacheManager.getInstance().getCacheFactory();
-            cache = cacheFactory.createCache(Collections.emptyMap());
-        } catch (CacheException e) {
-            // ...
-        }
-
-    }
     static String convertStreamToString(java.io.InputStream is) {
         java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
         return s.hasNext() ? s.next() : "";
     }
+
     /**
      * Handles the file upload.
      *
@@ -70,50 +57,18 @@ public class UploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Part mimeImage = request.getPart("text_file");
-        String id = convertStreamToString(mimeImage.getInputStream());
+        String problem_str = convertStreamToString(mimeImage.getInputStream());
+        log.info("Problem [" + problem_str + "]");
 
-        try {
-            byte[][] problem = SolvedSudoku.str2grid(id);
+        byte[][] problem = SolvedSudoku.str2grid(problem_str);
+        byte[][] solution = null;
 
-            log.info("Problem [" + id + "]");
-            byte[][] solution;
+        // TODO Solve / Store and Cache.
 
-            // First lookup in memcache.
-            SolvedSudoku solved = (SolvedSudoku) cache.get(id);
-
-            if (solved == null) {
-                // Then lookup in the datastore.
-                solved = ofy().load().type(SolvedSudoku.class).id(id).now();
-                if (solved == null) {
-                    // Then solve it.
-                    log.info("It is a new one, solving it. [" + id + "]");
-                    solution = new SudokuSolver(problem).solve();
-                    solved = new SolvedSudoku(id, SolvedSudoku.grid2str(solution));
-
-                    // Store it.
-                    log.info("Store it. [" + id + "]");
-                    ofy().save().entity(solved).now();
-                } else {
-                    log.info("This solution was in DB. [" + id + "] -> [" + solved.solution + "]");
-                }
-                cache.put(id, solved);
-            } else {
-                log.info("This solution was cached. [" + id + "] -> [" + solved.solution + "]");
-            }
-
-            solution = SolvedSudoku.str2grid(solved.solution);
-
-            // Feed the response.
-            response.setContentType("text/plain; charset=UTF-8");
-            PrintWriter output = response.getWriter();
-            output.println(DebugTools.fancyGrid(solution));
-            output.close();
-        } catch (Throwable error) {
-            log.warning("Could not solve the puzzle: " + error.getMessage());
-            response.setContentType("text/plain; charset=UTF-8");
-            PrintWriter output = response.getWriter();
-            output.println(error.getMessage());
-            output.close();
-        }
+        // Feed the response.
+        response.setContentType("text/plain; charset=UTF-8");
+        PrintWriter output = response.getWriter();
+        output.println(DebugTools.fancyGrid(solution));
+        output.close();
     }
 }

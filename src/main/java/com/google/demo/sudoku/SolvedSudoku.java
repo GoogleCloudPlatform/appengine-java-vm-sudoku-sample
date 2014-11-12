@@ -5,17 +5,12 @@ import com.googlecode.objectify.annotation.Id;
 
 import java.io.Serializable;
 
-@Entity
+// TODO
 public class SolvedSudoku implements Serializable{
-    @Id String problem;
-    String solution;
 
-    public SolvedSudoku() {}
+    // TODO
 
-    public SolvedSudoku(String problem, String solution) {
-        this.problem = problem;
-        this.solution = solution;
-    }
+    // Helpers
 
     /**
      * Transforms a string sudoku to 2d representation.

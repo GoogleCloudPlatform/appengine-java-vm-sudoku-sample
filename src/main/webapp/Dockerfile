@@ -1,20 +1,14 @@
-FROM google/appengine-java
+# Base image : TODO
 
-# copy the opencv package to the image.
-ADD opencv_2.4.10-1-2_all.deb /root/opencv_2.4.10-1-2_all.deb
+# copy the opencv deb package to the image.
+# TODO
 
-# install the opencv package with no dependencies.
-RUN dpkg --force-depends -i /root/opencv_2.4.10-1-2_all.deb
-
-# fixor the dependencies.
-RUN apt-get -y -q --no-install-recommends -f install
+# install the opencv package with and dependencies
+# TODO
 
 # copy the GAE app.
-ADD . /app
-
-# small cleanup
-RUN rm /app/opencv_2.4.10-1-2_all.deb
+# TODO
 
 # adapt options to be able to bind with jni part of opencv.
-ENV CLASSPATH /opt/opencv/share/OpenCV/java/opencv-2410.jar
-ENV _JAVA_OPTIONS -Djava.library.path=/opt/opencv/share/OpenCV/java/
+ENV CLASSPATH #TODO
+ENV _JAVA_OPTIONS -Djava.library.path= #TODO

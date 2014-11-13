@@ -4,11 +4,9 @@ package com.google.demo.sudoku;
  * Some debugging helpers.
  */
 public class DebugTools {
-    // an unicode template for a nice console rendering.
-    private final static char[] TEMPLATE;
-
-    static {
-        TEMPLATE = ("┏━━━┯━━━┯━━━┳━━━┯━━━┯━━━┳━━━┯━━━┯━━━┓\n" +
+    // a unicode template for a nice console rendering.
+    private final static String TEMPLATE =
+                "┏━━━┯━━━┯━━━┳━━━┯━━━┯━━━┳━━━┯━━━┯━━━┓\n" +
                 "┃   │   │   ┃   │   │   ┃   │   │   ┃\n" +
                 "┠───┼───┼───╂───┼───┼───╂───┼───┼───┨\n" +
                 "┃   │   │   ┃   │   │   ┃   │   │   ┃\n" +
@@ -26,8 +24,7 @@ public class DebugTools {
                 "┃   │   │   ┃   │   │   ┃   │   │   ┃\n" +
                 "┠───┼───┼───╂───┼───┼───╂───┼───┼───┨\n" +
                 "┃   │   │   ┃   │   │   ┃   │   │   ┃\n" +
-                "┗━━━┷━━━┷━━━┻━━━┷━━━┷━━━┻━━━┷━━━┷━━━┛\n").toCharArray();
-    }
+                "┗━━━┷━━━┷━━━┻━━━┷━━━┷━━━┻━━━┷━━━┷━━━┛\n";
 
     /**
      * Prints the given grid on the unicode template.
@@ -38,8 +35,7 @@ public class DebugTools {
      * @return the string representing the sudoku.
      */
     public static String fancyGrid(byte[][] grid) {
-        char[] cgrid = new char[TEMPLATE.length];
-        System.arraycopy(TEMPLATE, 0, cgrid, 0, TEMPLATE.length);
+        char[] cgrid = TEMPLATE.toCharArray();
 
         for (int y = 0; y < 9; y++) {
             for (int x = 0; x < 9; x++) {

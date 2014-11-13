@@ -40,7 +40,7 @@ To run in local Managed VM:
 
 To deploy to VM enabled project:
 
-    mvn appengine:gcloud_app_deploy
+    mvn -Dgcloud.project=YOUR_PROJECT appengine:gcloud_app_deploy
 
 ## [Alternative] Gradle usage
 

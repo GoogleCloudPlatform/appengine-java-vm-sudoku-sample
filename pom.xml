@@ -19,6 +19,7 @@
   <properties>
     <appengine.app.version>1</appengine.app.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <gcloud.project>sd-solver-java</gcloud.project>
   </properties>
 
   <prerequisites>
@@ -88,9 +89,9 @@
         <artifactId>appengine-maven-plugin</artifactId>
         <version>1.9.15</version>
         <configuration>
-          <gcloud_project>sd-solver-java</gcloud_project>
+          <gcloud_project>${gcloud.project}</gcloud_project>
           <enableJarClasses>false</enableJarClasses>
-          <!-- Comment in the below snippet to enable local debugging with a remove 
+          <!-- Uncomment the below snippet to enable local debugging with a remote 
             debugger like those included with Eclipse or IntelliJ -->
           <!-- jvmFlags> <jvmFlag>-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n</jvmFlag> 
             </jvmFlags -->

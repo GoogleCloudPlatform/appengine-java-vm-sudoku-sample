@@ -6,7 +6,7 @@ import com.googlecode.objectify.annotation.Id;
 import java.io.Serializable;
 
 @Entity
-public class SolvedSudoku implements Serializable{
+public class SolvedSudoku implements Serializable {
     @Id String problem;
     String solution;
 
@@ -26,7 +26,7 @@ public class SolvedSudoku implements Serializable{
     public static byte[][] str2grid(String gridstr) {
         byte[][] response = new byte[9][9];
         byte[] from = gridstr.getBytes();
-        for (int i=0;i<81;i++) {
+        for (int i = 0; i < 81; i++) {
             response[i/9][i%9] = (byte) (from[i] - '0');
         }
         return response;
@@ -38,7 +38,7 @@ public class SolvedSudoku implements Serializable{
      * @param grid the 2d sudoku.
      * @return a string of length 81 like "143234..." representing the concatenation of all the lines of the sudoku.
      */
-    public static String grid2str(byte[][]grid) {
+    public static String grid2str(byte[][] grid) {
         char[] flatten = new char[81];
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {

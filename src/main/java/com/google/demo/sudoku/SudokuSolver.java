@@ -46,14 +46,16 @@ public class SudokuSolver {
             if (++y == 9)
                 return true;
         }
-        if (grid[x][y] != 0)  // skip filled cells
+        if (grid[x][y] != 0) {  // skip filled cells
             return solveGrid(x + 1, y, grid);
+        }
 
         for (byte digit = 1; digit <= 9; ++digit) {
             if (isMovePossible(x, y, digit, grid)) {
                 grid[x][y] = digit;
-                if (solveGrid(x + 1, y, grid))
+                if (solveGrid(x + 1, y, grid)) {
                     return true;
+                }
             }
         }
         grid[x][y] = 0; // this is a dead end, reset this move and try something else.
@@ -72,18 +74,26 @@ public class SudokuSolver {
     private static boolean isMovePossible(int x, int y, byte digit, byte[][] grid) {
         int boxRowOffset = (x / 3) * 3;
         int boxColOffset = (y / 3) * 3;
-        for (int k = 0; k < 3; ++k)
-            for (int m = 0; m < 3; ++m)
-                if (digit == grid[boxRowOffset + k][boxColOffset + m])
+        for (int k = 0; k < 3; ++k) {
+            for (int m = 0; m < 3; ++m) {
+                if (digit == grid[boxRowOffset + k][boxColOffset + m]) {
                     return false;
+                }
+            }
+        }
 
-        for (int k = 0; k < 9; ++k)
-            if (digit == grid[k][y])
+        for (int k = 0; k < 9; ++k) {
+            if (digit == grid[k][y]) {
                 return false;
+            }
+        }
 
-        for (int k = 0; k < 9; ++k)
-            if (digit == grid[x][k])
+        for (int k = 0; k < 9; ++k) {
+            if (digit == grid[x][k]) {
                 return false;
+            }
+        }
+
         return true;
     }
 }

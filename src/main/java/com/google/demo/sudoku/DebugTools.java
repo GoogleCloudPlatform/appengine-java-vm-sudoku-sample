@@ -15,11 +15,9 @@ import org.opencv.imgproc.Imgproc;
  */
 public class DebugTools {
     private static final Scalar RED = new Scalar(0, 0, 255); // yeah BGR ...
-    // an unicode template for a nice console rendering.
-    private final static char[] TEMPLATE;
-
-    static {
-        TEMPLATE = ("┏━━━┯━━━┯━━━┳━━━┯━━━┯━━━┳━━━┯━━━┯━━━┓\n" +
+    // a unicode template for a nice console rendering.
+    private final static String TEMPLATE =
+                "┏━━━┯━━━┯━━━┳━━━┯━━━┯━━━┳━━━┯━━━┯━━━┓\n" +
                 "┃   │   │   ┃   │   │   ┃   │   │   ┃\n" +
                 "┠───┼───┼───╂───┼───┼───╂───┼───┼───┨\n" +
                 "┃   │   │   ┃   │   │   ┃   │   │   ┃\n" +
@@ -37,8 +35,7 @@ public class DebugTools {
                 "┃   │   │   ┃   │   │   ┃   │   │   ┃\n" +
                 "┠───┼───┼───╂───┼───┼───╂───┼───┼───┨\n" +
                 "┃   │   │   ┃   │   │   ┃   │   │   ┃\n" +
-                "┗━━━┷━━━┷━━━┻━━━┷━━━┷━━━┻━━━┷━━━┷━━━┛\n").toCharArray();
-    }
+                "┗━━━┷━━━┷━━━┻━━━┷━━━┷━━━┻━━━┷━━━┷━━━┛\n";
 
     /**
      * Returns a pseudo graphic representation of a digit.
@@ -147,8 +144,7 @@ public class DebugTools {
      * @return the string representing the sudoku.
      */
     public static String fancyGrid(byte[][] grid) {
-        char[] cgrid = new char[TEMPLATE.length];
-        System.arraycopy(TEMPLATE, 0, cgrid, 0, TEMPLATE.length);
+        char[] cgrid = TEMPLATE.toCharArray();
 
         for (int y = 0; y < 9; y++) {
             for (int x = 0; x < 9; x++) {

@@ -11,9 +11,9 @@ This is a tutorial in Java showing how to :
 
 ## tutorial steps
 
-Simple Hello world app:
+Simple startup Hello world app:
 
-    git checkout helloworld
+    git checkout master
 
 Simple frontend with the with datastore and memcache TODOs:
 
@@ -40,7 +40,7 @@ To run in local Managed VM:
 
 To deploy to VM enabled project:
 
-    mvn appengine:gcloud_app_deploy
+    mvn -Dgcloud.project=YOUR_PROJECT appengine:gcloud_app_deploy
 
 ## [Alternative] Gradle usage
 

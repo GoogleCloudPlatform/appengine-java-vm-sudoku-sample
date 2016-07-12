@@ -33,10 +33,10 @@ watch {
 }
 
 task run(type: Exec) {
-    commandLine "gcloud --verbosity debug preview app run $buildDir/exploded".split()
+    commandLine "gcloud --verbosity debug app run $buildDir/exploded".split()
 }
 
 task deploy(type: Exec) {
-    commandLine "gcloud --verbosity debug preview app deploy $buildDir/exploded".split()
+    commandLine "gcloud --verbosity debug app deploy $buildDir/exploded".split()
 }
 
